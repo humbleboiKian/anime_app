@@ -6,14 +6,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const moviesRoutes = require('./routes/movies');
-const usersRoutes = require('./routes/users');
+// routes
+const animeRoutes = require('./routes/movies');
+const userRoutes = require('./routes/users');
 
-app.use('/api/anime', moviesRoutes);
-app.use('/api/users', usersRoutes);
+app.use('/api/anime', animeRoutes);
+app.use('/api/users', userRoutes);
 
-const PORT = 3000;
+// ✅ ADD THIS ROOT ROUTE
+app.get('/', (req, res) => {
+  res.send('Anime API is running 🚀');
+});
 
+// start server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
